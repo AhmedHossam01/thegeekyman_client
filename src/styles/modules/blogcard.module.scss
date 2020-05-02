@@ -1,0 +1,23 @@
+@import "../utils/mixins";
+
+.blogCard {
+  &:not(last-of-type) {
+    margin-bottom: 2rem;
+  }
+}
+
+.blogCardImage {
+  height: 13rem;
+  object-fit: cover;
+}
+
+.blogCardButton {
+  color: white;
+  transition: all 0.2s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: rgb(212, 212, 212);
+  }
+}
