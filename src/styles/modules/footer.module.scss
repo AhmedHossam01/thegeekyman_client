@@ -1,0 +1,39 @@
+@import "../utils/mixins";
+
+.footer {
+  background-color: #1b1b1b;
+  padding: 2rem 0;
+}
+
+.footerHeading {
+  color: white;
+  font-size: 2rem;
+}
+
+.footerParagraph {
+  color: rgb(212, 212, 212);
+  font-weight: 300;
+}
+
+.footerLink {
+  line-height: 1.8;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.footerBlock {
+  &:not(last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  padding: 1rem;
+
+  @include md {
+    &:not(last-of-type) {
+      margin-bottom: 0;
+    }
+    padding: 0;
+  }
+}
