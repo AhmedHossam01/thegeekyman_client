@@ -4,4 +4,12 @@ const getAllPosts = () => {
   return mainClient.get("/posts")
 }
 
-export { getAllPosts }
+const createNewPost = (post: IPost) => {
+  return mainClient.post("/posts", post)
+}
+
+interface IPost {
+  title: string
+}
+
+export { getAllPosts, createNewPost }
