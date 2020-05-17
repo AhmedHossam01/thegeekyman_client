@@ -6,51 +6,22 @@ import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
 
-const IndexPage = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
-      ) {
-        edges {
-          node {
-            frontmatter {
-              slug
-              title
-              description
-              featuredImage {
-                childImageSharp {
-                  fluid(maxWidth: 800) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-              date
-              tags
-            }
-            fields {
-              readingTime {
-                text
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
-
-  const posts = data.allMarkdownRemark.edges
+const TagPage = ({ pageContext, data }) => {
+  const { tag } = pageContext
+  const { edges: posts, totalCount } = data.allMarkdownRemark
+  const tagHeader = `${totalCount} post${
+    totalCount === 1 ? "" : "s"
+  } tagged with "${tag}"`
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title={tag} />
 
       <section>
         <Container className="mt-5">
           <Row>
             <Col>
-              <Hero title="The Geeky Man | Home" />
+              <Hero title={`The Geeky Man | ${tagHeader}`} />
             </Col>
           </Row>
         </Container>
@@ -90,4 +61,39 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default TagPage
+
+export const pageQuery = graphql`
+  query($tag: String) {
+    allMarkdownRemark(
+      limit: 2000
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { tags: { in: [$tag] } } }
+    ) {
+      totalCount
+      edges {
+        node {
+          frontmatter {
+            slug
+            title
+            description
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            date
+            tags
+          }
+          fields {
+            readingTime {
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+`

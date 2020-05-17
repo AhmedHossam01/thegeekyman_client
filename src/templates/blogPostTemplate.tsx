@@ -3,13 +3,18 @@ import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import { Container } from "react-bootstrap"
-import Image from "../components/Image"
+import Img from "gatsby-image"
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
 import BlogPostStyles from "../styles/modules/blogpost.module.scss"
+
+deckDeckGoHighlightElement()
 
 export default function Template({ data }) {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
+  const featuredImgFluid = frontmatter.featuredImage.childImageSharp.fluid
   const { title, date, description } = frontmatter
+  const readingTime = markdownRemark.fields.readingTime.text
 
   return (
     <Layout>
@@ -17,10 +22,21 @@ export default function Template({ data }) {
       <Container>
         <article className={BlogPostStyles.blogPost}>
           <h1>{title}</h1>
-          <p>
-            Published in <time>{date}</time>
-          </p>
-          <div className="mt-5">{/* cover here */}</div>
+          <div>
+            <p>
+              Published in <time>{date}</time>
+            </p>
+            <p className="font-weight-light mt-n2" style={{ color: "#808080" }}>
+              {readingTime}
+            </p>
+          </div>
+          <div className={BlogPostStyles.blogPostImageContainer}>
+            <Img
+              fluid={featuredImgFluid}
+              draggable={false}
+              className={BlogPostStyles.blogPostImage}
+            />
+          </div>
           <p
             className={BlogPostStyles.blogPostParagraph}
             dangerouslySetInnerHTML={{ __html: html }}
@@ -39,6 +55,19 @@ export const pageQuery = graphql`
         date
         slug
         title
+        description
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+      fields {
+        readingTime {
+          text
+        }
       }
     }
   }

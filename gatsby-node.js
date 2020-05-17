@@ -1,9 +1,13 @@
+const path = require("path")
+const _ = require("lodash")
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
   const blogPostTemplate = require.resolve(
     `./src/templates/blogPostTemplate.tsx`
   )
+  const tagTemplate = path.resolve("./src/templates/tagPageTemplate.tsx")
 
   const result = await graphql(`
     {
@@ -19,6 +23,12 @@ exports.createPages = async ({ actions, graphql }) => {
           }
         }
       }
+
+      tagsGroup: allMarkdownRemark(limit: 2000) {
+        group(field: frontmatter___tags) {
+          fieldValue
+        }
+      }
     }
   `)
 
@@ -32,6 +42,17 @@ exports.createPages = async ({ actions, graphql }) => {
       component: blogPostTemplate,
       context: {
         slug,
+      },
+    })
+  })
+
+  const tags = result.data.tagsGroup.group
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
+      component: tagTemplate,
+      context: {
+        tag: tag.fieldValue,
       },
     })
   })

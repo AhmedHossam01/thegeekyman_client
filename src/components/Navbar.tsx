@@ -2,10 +2,23 @@ import React from "react"
 import Container from "react-bootstrap/Container"
 import { Navbar, Nav } from "react-bootstrap"
 import NavbarStyles from "../styles/modules/navbar.module.scss"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 import Image from "./Image"
 
-const AppNavbar: React.FC<IProps> = ({ items }) => {
+const AppNavbar: React.FC = () => {
+  const result = useStaticQuery(graphql`
+    query tags {
+      allMarkdownRemark(limit: 2000) {
+        group(field: frontmatter___tags) {
+          fieldValue
+          # totalCount
+        }
+      }
+    }
+  `)
+
+  const tags = result.allMarkdownRemark.group
+
   return (
     <>
       <Navbar className={NavbarStyles.navbar} expand="md">
@@ -23,13 +36,12 @@ const AppNavbar: React.FC<IProps> = ({ items }) => {
           />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className={`ml-auto ${NavbarStyles.nav}`}>
-              {items.map(item => (
+              {tags.map(tag => (
                 <Link
-                  to={item.target}
-                  key={item.id}
+                  to={`tags/${tag.fieldValue}`}
                   className={NavbarStyles.link}
                 >
-                  {item.title}
+                  {tag.fieldValue}
                 </Link>
               ))}
             </Nav>
@@ -38,14 +50,6 @@ const AppNavbar: React.FC<IProps> = ({ items }) => {
       </Navbar>
     </>
   )
-}
-
-interface IProps {
-  items: {
-    title: string
-    target: string
-    id: string
-  }[]
 }
 
 export default AppNavbar
