@@ -1,17 +1,18 @@
 import React from "react"
 import { Row, Col, Container } from "react-bootstrap"
 import Hero from "../components/Hero"
-import BlogCard from "../components/BlogCard"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
+import BlogCardsContainer from "../components/BlogCardsContainer"
+import Pagination from "../components/Pagination"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
+        limit: 6
       ) {
         edges {
           node {
@@ -58,34 +59,20 @@ const IndexPage = () => {
 
       <article>
         <Container>
-          <Row className="mt-5">
-            {posts.map(post => {
-              const node = post.node
-              const {
-                title,
-                slug,
-                description,
-                featuredImage,
-                tags,
-              } = node.frontmatter
-              const readingTime = node.fields.readingTime.text
-
-              return (
-                <Col lg={4} md={6}>
-                  <BlogCard
-                    title={title}
-                    content={description}
-                    image={featuredImage.childImageSharp.fluid}
-                    link={slug}
-                    readingTime={readingTime}
-                    tags={tags}
-                  />
-                </Col>
-              )
-            })}
-          </Row>
+          <BlogCardsContainer posts={posts} />
         </Container>
       </article>
+
+      <Container>
+        <div className="mt-3 mb-5">
+          <Pagination
+            currentPage={1}
+            previousPage={null}
+            nextPage={2}
+            isLastPage={false}
+          />
+        </div>
+      </Container>
     </Layout>
   )
 }

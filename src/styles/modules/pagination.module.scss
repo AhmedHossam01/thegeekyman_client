@@ -1,0 +1,40 @@
+@import "../utils/mixins";
+
+.paginationStyles {
+  &Container {
+    display: flex;
+    justify-content: center;
+
+    @include md {
+      width: 40%;
+      margin: 0 auto;
+    }
+
+    @include lg {
+      width: 30%;
+    }
+  }
+
+  &Item {
+    background-color: white;
+    padding: 0.1rem 0.6rem;
+    box-shadow: 3px 2px 11px -3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 2px 1px 5px -3px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+      background-color: #0879fa;
+      color: white;
+    }
+  }
+
+  &Link {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}

@@ -7,4 +7,10 @@
   background: linear-gradient(to right, #ec6ead, #3494e6);
   color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  display: none;
+
+  @include md {
+    display: block;
+  }
 }

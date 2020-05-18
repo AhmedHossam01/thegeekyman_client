@@ -44,6 +44,12 @@ const AppNavbar: React.FC = () => {
                   {tag.fieldValue}
                 </Link>
               ))}
+              <Link
+                className={`${NavbarStyles.link} px-2 bg-primary text-white shadow-sm rounded`}
+                to="/about"
+              >
+                About The Author
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

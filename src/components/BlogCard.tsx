@@ -37,7 +37,7 @@ const BlogCard: React.FC<IProps> = ({
         <p>
           {tags.map((tag, index) => {
             return (
-              <span
+              <Link
                 style={{
                   backgroundColor: randomColor({
                     format: "rgb",
@@ -45,10 +45,10 @@ const BlogCard: React.FC<IProps> = ({
                   }),
                 }}
                 className="mr-2 text-white p-1 rounded"
+                to={`tags/${tag}`}
               >
                 {tag}
-                {index}
-              </span>
+              </Link>
             )
           })}
         </p>

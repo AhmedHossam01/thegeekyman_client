@@ -1,9 +1,22 @@
 import React from "react"
 import { Row, Col, Container } from "react-bootstrap"
 import FooterStyles from "../styles/modules/footer.module.scss"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 
 export default function Footer() {
+  const result = useStaticQuery(graphql`
+    query otherTags {
+      allMarkdownRemark(limit: 2000) {
+        group(field: frontmatter___tags) {
+          fieldValue
+          # totalCount
+        }
+      }
+    }
+  `)
+
+  const tags = result.allMarkdownRemark.group
+
   return (
     <footer className={FooterStyles.footer}>
       <Container>
@@ -12,9 +25,11 @@ export default function Footer() {
             <div className={FooterStyles.footerBlock}>
               <h4 className={FooterStyles.footerHeading}>About</h4>
               <p className={FooterStyles.footerParagraph}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-                quas modi maxime amet deserunt! Tempore itaque natus harum
-                excepturi necessitatibus!
+                The Geeky Man is a personal blog website by Ahmed Hossam. It's
+                made to share author's thoughts as a geek. Main topics of
+                interests in this website are: Full-Stack JavaScript, Web
+                Development, Cross-Platform Development and self-help tips for
+                software developers!
               </p>
             </div>
           </Col>
@@ -22,9 +37,11 @@ export default function Footer() {
             <div className={FooterStyles.footerBlock}>
               <h4 className={FooterStyles.footerHeading}>Tags</h4>
               <div>
-                <Link to="/" className={FooterStyles.footerLink}>
-                  Category 1
-                </Link>
+                {tags.map(tag => (
+                  <Link to="/" className={FooterStyles.footerLink}>
+                    {tag.fieldValue}
+                  </Link>
+                ))}
               </div>
             </div>
           </Col>
@@ -35,12 +52,21 @@ export default function Footer() {
                 <Link to="/" className={FooterStyles.footerLink}>
                   Home
                 </Link>
+                <Link to="/about" className={FooterStyles.footerLink}>
+                  About
+                </Link>
+                <Link to="/404" className={FooterStyles.footerLink}>
+                  404
+                </Link>
               </div>
             </div>
           </Col>
           <Col md={6} lg={3}>
             <div className={FooterStyles.footerBlock}>
               <h4 className={FooterStyles.footerHeading}>Info</h4>
+              <p className="text-white">
+                You can email me at: ahmed.1318039@stemdakahlia.moe.edu.eg
+              </p>
             </div>
           </Col>
         </Row>

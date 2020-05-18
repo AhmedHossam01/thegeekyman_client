@@ -3,6 +3,7 @@ module.exports = {
     title: `The Geeky Man`,
     description: `A blog website from geeks to geeks.`,
     author: `Ahmed Hossam`,
+    siteUrl: "https://www.thegeekyman.com",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -27,13 +28,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `The Geeky Man`,
+        short_name: `TheGeekyMan`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/logo.jpg`, // This path is relative to the root of the site.
+        icon: `src/images/logo.jpg`,
       },
     },
     {
@@ -59,8 +60,16 @@ module.exports = {
         ],
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-sitemap`,
+    "gatsby-plugin-robots-txt",
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-166904696-1",
+        head: false,
+        pageTransitionDelay: 0,
+        defer: false,
+      },
+    },
   ],
 }
