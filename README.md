@@ -1,6 +1,6 @@
 # The Geeky Man
 Simple markdown blog for real website with Gatsby and React.
-Live Preview: https://thegeekyman.com
+Live Preview: https://thegeekyman.media
 
 ![Screenshot from 2020-05-26 18-59-29](https://user-images.githubusercontent.com/50014916/82929370-d6b5eb00-9f83-11ea-8e83-13a9c70ed27b.png)
 
