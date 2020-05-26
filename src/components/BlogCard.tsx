@@ -5,7 +5,7 @@ import BlogCardStyles from "../styles/modules/blogcard.module.scss"
 import { Card, CardTitle, CardBody, Button } from "shards-react"
 import { Link } from "gatsby"
 import ThumbnailImage from "./ThumbnailImage"
-import randomColor from "randomcolor"
+import randomColor from "random-material-color"
 
 const BlogCard: React.FC<IProps> = ({
   title,
@@ -38,14 +38,9 @@ const BlogCard: React.FC<IProps> = ({
           {tags.map((tag, index) => {
             return (
               <Link
-                style={{
-                  backgroundColor: randomColor({
-                    format: "rgb",
-                    alpha: 1,
-                  }),
-                }}
-                className="mr-2 text-white p-1 rounded"
+                className="mr-2 text-white px-2 rounded shadow-sm"
                 to={`tags/${tag}`}
+                style={{ backgroundColor: randomColor.getColor() }}
               >
                 {tag}
               </Link>

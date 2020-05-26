@@ -44,12 +44,13 @@ const AppNavbar: React.FC = () => {
                   {tag.fieldValue}
                 </Link>
               ))}
-              <Link
+              <a
                 className={`${NavbarStyles.link} px-2 bg-primary text-white shadow-sm rounded`}
-                to="/about"
+                href="https://www.linkedin.com/in/ahmedhossam01/"
+                target="_blank"
               >
                 About The Author
-              </Link>
+              </a>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -63,16 +63,18 @@ const IndexPage = () => {
         </Container>
       </article>
 
-      <Container>
-        <div className="mt-3 mb-5">
-          <Pagination
-            currentPage={1}
-            previousPage={null}
-            nextPage={2}
-            isLastPage={false}
-          />
-        </div>
-      </Container>
+      {posts.length >= 6 && (
+        <Container>
+          <div className="mt-3 mb-5">
+            <Pagination
+              currentPage={1}
+              previousPage={null}
+              nextPage={2}
+              isLastPage={false}
+            />
+          </div>
+        </Container>
+      )}
     </Layout>
   )
 }

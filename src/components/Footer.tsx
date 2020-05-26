@@ -52,9 +52,13 @@ export default function Footer() {
                 <Link to="/" className={FooterStyles.footerLink}>
                   Home
                 </Link>
-                <Link to="/about" className={FooterStyles.footerLink}>
+                <a
+                  href="https://www.linkedin.com/in/ahmedhossam01/"
+                  target="_blank"
+                  className={FooterStyles.footerLink}
+                >
                   About
-                </Link>
+                </a>
                 <Link to="/404" className={FooterStyles.footerLink}>
                   404
                 </Link>
@@ -65,7 +69,7 @@ export default function Footer() {
             <div className={FooterStyles.footerBlock}>
               <h4 className={FooterStyles.footerHeading}>Info</h4>
               <p className="text-white">
-                You can email me at: ahmed.1318039@stemdakahlia.moe.edu.eg
+                If you need something else contact me 😀
               </p>
             </div>
           </Col>
